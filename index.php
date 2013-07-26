@@ -11,7 +11,7 @@ require("./configuraciones/header_web.php");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Metin2 V.2</title>
+<title>Metin2 V.2 By Rimander</title>
     <meta name="owner" content="Metin2" />
     <meta name="classification" content="Online Games" />
     <link href="style.css" rel="stylesheet" type="text/css" />
