@@ -23,17 +23,14 @@ Introduzca la contrase&ntilde;a de la cuenta
 
 <?php
 if(isset($_POST['des'])) { 
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpw = "pwd";
-$conexion = mysql_connect("$dbhost","$dbuser","$dbpw");
- 
+
 $pj = mysql_real_escape_string($_POST['personaje']); 
 $ac = mysql_real_escape_string($_POST['cuenta']); 
 $pass = mysql_real_escape_string($_POST['pass']); 
 
 mysql_select_db('account');
-$cuenta = mysql_query("SELECT * FROM account WHERE login = '".$ac."'  AND password=PASSWORD('".$pass."')")or die('Could not select database: '.mysql_error());  
+$upmds = "SELECT * FROM account WHERE login = '".$ac."'  AND password=PASSWORD('".$pass."')";  
+$cuenta = mysql_query($upmds,$sqlserver);
 if(mysql_num_rows($cuenta)>0){
         $fila = mysql_fetch_assoc($cuenta);
 		 $id_c = $fila['id'];
@@ -42,14 +39,16 @@ if(mysql_num_rows($cuenta)>0){
 	die('No hay ninguna cuenta con ese nombre y contrase&ntilde;a');}
 
 		 mysql_select_db('player');
-		 $per = mysql_query("SELECT * FROM player WHERE account_id = '".$id_c."'  AND name = '".$pj."'")or die('Could not select database: '.mysql_error());  
+		 $upmds = "SELECT * FROM player WHERE account_id = '".$id_c."'  AND name = '".$pj."'";  
+        	$per = mysql_query($upmds,$sqlserver);
          if(mysql_num_rows($per)>0){
         $pers = mysql_fetch_assoc($per);
 		$id_p = $pers['id'];
 		}else{
 			 die('No hay ningun personaje con ese nombre, en la cuenta');
 		 }
-		$re = mysql_query("SELECT empire FROM player_index WHERE id = '".$id_c."'"); 
+		$upmds = "SELECT empire FROM player_index WHERE id = '".$id_c."'"; 
+		$re = mysql_query($upmds,$sqlserver);
          if(mysql_num_rows($re)>0){
         $rei = mysql_fetch_assoc($re);
 		$reino = $rei['empire'];
@@ -74,7 +73,8 @@ if(mysql_num_rows($cuenta)>0){
 				}
 				
 			
-			 $des = mysql_query("UPDATE player SET map_index = ".$mapa.", x = ".$x." , y = ".$y.", exit_x = ".$x." , exit_y = ".$y." WHERE account_id = '".$id_c."'  AND name = '".$pj."'");	  
+			 $upmds = "UPDATE player SET map_index = ".$mapa.", x = ".$x." , y = ".$y.", exit_x = ".$x." , exit_y = ".$y." WHERE account_id = '".$id_c."'  AND name = '".$pj."'";	  
+			$des = mysql_query($upmds,$sqlserver);
 			if($des == TRUE){
 				echo'Enviado a city';
 			}else{
